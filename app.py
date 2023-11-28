@@ -11,6 +11,8 @@ debug = DebugToolbarExtension(app)
 
 @app.get("/")
 def show_story_selector():
+    """Displays dropdown of story titles"""
+
     story_titles = story_dict.keys()
     return render_template("pick_story.html", story_titles=story_titles)
 
@@ -23,11 +25,15 @@ def show_question_form():
     #     if story.title = form_answer:
     #         current_story = story
 
-    story_title = request.args["stories"]
+    story_title = request.args["stories"] #rename story-title here and in html
 
     prompts = story_dict[story_title].prompts
-    return render_template("questions.html", prompts=prompts
-                           , story_title = story_title)
+    return render_template(
+        "questions.html",
+        prompts=prompts,
+        story_title=story_title)
+
+
 
 @app.get("/results/<story_title>")
 def show_story(story_title):
